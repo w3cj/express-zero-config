@@ -4,10 +4,10 @@
  * Module dependencies.
  */
 
-var debug = require('debug')('simplexpress:server');
-var express = require('express');
-var http = require('http');
-var {createApp} = require('./app');
+const debug = require('debug')('simplexpress:server');
+const express = require('express');
+const http = require('http');
+const {createApp} = require('./app');
 
 /**
  * Create HTTP server.
@@ -30,7 +30,7 @@ function createServer(app, port) {
   var port = normalizePort(port || process.env.PORT || '3000');
   app.set('port', port);
 
-  var server = http.createServer(app);
+  const server = http.createServer(app);
 
   server.start = function() {
     /**
@@ -48,11 +48,11 @@ function createServer(app, port) {
    */
 
   function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === 'string'
-      ? 'pipe ' + addr
-      : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    const addr = server.address();
+    const bind = typeof addr === 'string'
+      ? `pipe ${  addr}`
+      : `port ${  addr.port}`;
+    debug(`Listening on ${  bind}`);
   }
 
   return server;
@@ -63,7 +63,7 @@ function createServer(app, port) {
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -87,18 +87,18 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  const bind = typeof port === 'string'
+    ? `Pipe ${  port}`
+    : `Port ${  port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
   case 'EACCES':
-    console.error(bind + ' requires elevated privileges');
+    console.error(`${bind  } requires elevated privileges`);
     process.exit(1);
     break;
   case 'EADDRINUSE':
-    console.error(bind + ' is already in use');
+    console.error(`${bind  } is already in use`);
     process.exit(1);
     break;
   default:
@@ -110,8 +110,8 @@ module.exports = {
   startServer,
   createServer,
   createApp,
-  createRouter: function() {
-    var router = express.Router();
+  createRouter() {
+    const router = express.Router();
     router.startServer = function(port) {
       startServer(router, port);
     };

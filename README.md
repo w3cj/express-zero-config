@@ -5,7 +5,6 @@ Create an express app with minimal configuration. Based on the official express 
 Includes Handlebars view engine. Includes 404 and uncaught error handlers.
 
 Included middleware:
-* express
 * morgan (development logger)
 * cookie-parser
 * body-parser

@@ -9,10 +9,18 @@ Included middleware:
 * cookie-parser
 * body-parser
 
+## Install
+
+```sh
+npm install -S express-zero-config
+#or
+yarn add express-zero-config
+```
+
 ## Basic Usage:
 
 ```js
-const ezc = require("express-zero-config");
+const ezc = require('express-zero-config');
 
 const router = ezc.createRouter();
 
@@ -28,8 +36,8 @@ ezc.startServer(router);
 ## Usage with configuration
 
 ```js
-const ezc = require("express-zero-config");
-const path = require("path");
+const ezc = require('express-zero-config');
+const path = require('path');
 
 const router = ezc.createRouter();
 

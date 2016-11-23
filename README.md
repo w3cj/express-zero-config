@@ -49,8 +49,8 @@ router.get('/', (req, res, next) => {
 
 const app = ezc.createApp({
   router,
-  view_path: path.combine(__dirname, 'views'),
-  static_dir: path.combine(__dirname, 'public')
+  view_path: path.join(__dirname, 'views'),
+  static_dir: path.join(__dirname, 'public')
 });
 
 const server = ezc.createServer(app);

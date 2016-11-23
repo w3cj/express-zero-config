@@ -4,7 +4,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-function createApp(options) {
+function createApp(options = {}) {
   const app = express();
 
   // view engine setup
@@ -20,6 +20,14 @@ function createApp(options) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
+
+  if(!options.use || options.use.constructor != 'Array') {
+    options.use = [];
+  }
+
+  if(options.use.length > 0) {
+    options.use.forEach(app.use);
+  }
 
   if(options.static_dir) {
     app.use(express.static(options.static_dir));
@@ -44,10 +52,12 @@ function createApp(options) {
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
 
+    const develop = app.get('env') === 'development';
     const accept = req.get('accept');
     const error = {
       message: err.message,
-      error: app.get('env') === 'development' ? err : {}
+      error: develop ? err : {},
+      stack: develop && err.stack ? err.stack : {}
     };
 
     if(accept.includes('json')) {

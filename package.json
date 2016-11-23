@@ -1,7 +1,7 @@
 {
   "name": "express-zero-config",
-  "version": "1.0.4",
-  "description": "Create an express app with minimal configuration. Based on the official express generator.",
+  "version": "1.1.0",
+  "description": "Create an express app with a default configuration. Based on the official express generator.",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
     "hbs": "~4.0.0",
     "morgan": "~1.7.0"
   },
-  "keywords": [],
+  "keywords": ["express", "app", "router", "config", "default"],
   "author": "w3cj <hello@cjr.co.de>",
   "license": "MIT"
 }

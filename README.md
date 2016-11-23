@@ -1,13 +1,6 @@
 # Express Zero Config
 
-Create an express app with minimal configuration. Based on the official express generator.
-
-Includes Handlebars view engine. Includes 404 and uncaught error handlers.
-
-Included middleware:
-* morgan (development logger)
-* cookie-parser
-* body-parser
+Create an express app with a default configuration. Based on the official express generator.
 
 ## Install
 
@@ -17,7 +10,7 @@ npm install -S express-zero-config
 yarn add express-zero-config
 ```
 
-## Basic Usage:
+## Quick Start:
 
 ```js
 const ezc = require('express-zero-config');
@@ -30,14 +23,34 @@ router.get('/', (req, res, next) => {
   })
 });
 
-ezc.startServer(router);
+ezc.startServer(router); // startServer parameters: (express.Router, port_number)
 ```
 
-## Usage with configuration
+For more advanced usage and configuration options see the [Examples section](https://github.com/w3cj/express-zero-config#examples).
+
+## Included Defaults:
+* Handlebars view engine
+* 404 and uncaught error handlers
+* middleware:
+  * morgan (development logger)
+  * cookie-parser
+  * body-parser
+
+## `express-zero-config` on github
+
+If you get some use out of `express-zero-config` please star the [repo on github](https://github.com/w3cj/express-zero-config).
+
+Make an [issue on github](https://github.com/w3cj/express-zero-config/issues) to report bugs and request new features.
+
+# Examples
+
+Source code for the below examples is available in the [`examples` folder](https://github.com/w3cj/express-zero-config/tree/master/examples).
+
+## Usage with views and static configuration
 
 ```js
-const ezc = require('express-zero-config');
 const path = require('path');
+const ezc = require('express-zero-config');
 
 const router = ezc.createRouter();
 
@@ -53,7 +66,38 @@ const app = ezc.createApp({
   static_dir: path.join(__dirname, 'public')
 });
 
-const server = ezc.createServer(app);
+const server = ezc.createServer(app); // createServer parameters: (express app, port_number)
 
+server.start();
+```
+
+## Usage with multiple routers and middleware
+
+```js
+const path = require('path');
+const session = require('express-session');
+const passport = require('passport');
+
+const ezc = require('express-zero-config');
+
+const app = ezc.createApp({
+  router,
+  use: [
+    session({ secret: process.env.SESSION_SECRET }),
+    passport.initialize(),
+    passport.session()
+  ],
+  view_path: path.join(__dirname, 'views'),
+  static_dir: path.join(__dirname, 'public')
+});
+
+const auth = require('./auth'); // Exports an express router
+const api = require('./api'); // Exports an express router
+
+const router = ezc.createRouter();
+router.use('/auth', auth);
+router.use('/api/v1', api);
+
+const server = ezc.createServer(app);
 server.start();
 ```

@@ -1,6 +1,6 @@
 {
   "name": "express-zero-config",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Create an express app with minimal configuration. Based on the official express generator.",
   "main": "index.js",
   "repository": {

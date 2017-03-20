@@ -8,6 +8,7 @@ const debug = require('debug')('simplexpress:server');
 const express = require('express');
 const http = require('http');
 const {createApp} = require('./app');
+let port = process.env.PORT;
 
 /**
  * Create HTTP server.
@@ -22,12 +23,12 @@ function startServer(router, port) {
   server.start();
 }
 
-function createServer(app, port) {
+function createServer(app, customPort) {
   /**
    * Get port from environment and store in Express.
    */
 
-  var port = normalizePort(port || process.env.PORT || '3000');
+  port = normalizePort(customPort || process.env.PORT || '3000');
   app.set('port', port);
 
   const server = http.createServer(app);
